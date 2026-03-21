@@ -1,21 +1,46 @@
-import { prisma } from "@/lib/prisma";
-import { createTodo } from "./action";
+"use client";
+import { IconButton } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useState } from 'react';
+import Calendar from './calendar';
 
-export default async function TodosPage() {
-  const todos = await prisma.todo.findMany();
+export default function TodosPage() {
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  const handlePreviousMonth = () => {
+    setCurrentDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setMonth(newDate.getMonth() - 1);
+      return newDate;
+    });
+  };
+
+  const handleNextMonth = () => {
+    setCurrentDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setMonth(newDate.getMonth() + 1);
+      return newDate;
+    });
+  };
+
+  const month = currentDate.toLocaleString('default', { month: 'long' });
+  const year = currentDate.getFullYear();
+
   return (
     <div>
-      <h1>Todos</h1>
-      <form action={createTodo}>
-        <input type="text" name="title" placeholder="Title" required />
-        <input type="date" name="dueDate" required />
-        <button type="submit">Create</button>
-      </form>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
-      </ul>
+    <div style={{padding:'10px', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+      <IconButton onClick={handlePreviousMonth}>
+        <ArrowBackIcon />
+      </IconButton>
+
+      <span>{month} {year}</span>
+
+      <IconButton onClick={handleNextMonth}>
+        <ArrowForwardIcon />
+      </IconButton>
+    </div>
+    <Calendar />
     </div>
   );
 }
