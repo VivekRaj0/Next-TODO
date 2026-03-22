@@ -29,18 +29,20 @@ export default function TodosPage() {
 
   return (
     <div>
-    <div style={{padding:'10px', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+    <div style={{ padding: '10px', display: 'flex', alignItems: 'stretch', width: '100%', boxSizing: 'border-box' }}>
+      <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid red', borderRadius: '5px', backgroundColor: 'rgba(255, 255, 255, 0.75)' }}>
       <IconButton onClick={handlePreviousMonth}>
         <ArrowBackIcon />
       </IconButton>
-
-      <span>{month} {year}</span>
-
+      </div>
+      <div style={{ flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255, 255, 255, 0.75)', borderRadius: '5px', border: '1px solid red' }}>{month} {year}</div>
+      <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid red', borderRadius: '5px', backgroundColor: 'rgba(255, 255, 255, 0.75)' }}>
       <IconButton onClick={handleNextMonth}>
         <ArrowForwardIcon />
       </IconButton>
+      </div>
     </div>
-    <Calendar />
+    <Calendar currentDate={currentDate} />
     </div>
   );
 }

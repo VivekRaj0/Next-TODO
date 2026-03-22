@@ -1,8 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
+import TodosPage from "./todos/page";
 
 export default function Home() {
   return (
-    <Link href="/todos">Todos</Link>
+    <TodosPage/>
   );
 }
